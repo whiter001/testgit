@@ -40,7 +40,7 @@ Mzitu.prototype={
 			match;
 		while((match=this.reg.exec(data))!=null){
 			resource.res.push({
-				dir:'http://www.jb51.net'+match[1],
+				src:'http://www.jb51.net'+match[1],
 				title:match[2]
 			});
 		}
