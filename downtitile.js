@@ -21,13 +21,14 @@ Mzitu.prototype={
 	getPage:function(){
 		var self = this;
 		if(this.page<=this.total){
-			var data=null;
+			var data=[];
 			http.get(this.baseUrl+this.page+'.htm',function(res){
-				res.setEncoding('utf8');
+				// res.setEncoding('utf8');
 				res.on('data',function(chunk){
-					data +=chunk;
+					data.push(chunk);
 				}).on('end',function(){
-					self.parseData(data);
+					var d=iconv.decode(Buffer.concat(data),'gb2312');
+					self.parseData(d);
 				})
 			})
 		}
@@ -48,29 +49,13 @@ Mzitu.prototype={
 	write:function(res){
 		var self = this,
 			data = JSON.stringify(res,null,4);
-		fs.writeFile(this.dir+this.page+'.json',data,function(err){
+		fs.writeFile(this.dir+this.page+'.json',data,null,function(err){
 			if(err) throw err;
-			self.encode();
+			console.log(self.dir+self.page+'.json,it\'s saved');
+			self.page++;
+			self.start();
 		})
 	},
-	encode:function(){
-		var self = this;
-		fs.readFile(self.dir+self.page+'.json',function(err,data){
-			if(err){
-				console.error(err);
-			}else{
-				var str = iconv.decode(data,'utf8');
-				var str2 = iconv.encode(str,'gbk');
-
-				fs.writeFile(self.dir+'gbk'+self.page+'.json',str2,null,function(err){
-					if(err) throw err;
-					console.log(self.dir+'gbk'+self.page+'.json,It\'s saved!');
-					self.page++;
-					self.start();
-				})
-			}
-		})
-	}
 }
 var mzitu = new Mzitu({
 	baseUrl:'http://www.jb51.net/list/list_243_',
