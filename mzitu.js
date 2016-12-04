@@ -40,8 +40,8 @@ Mzitu.prototype = {
     }
 }
 var mzitu = new Mzitu({
-    baseUrl: 'http://i.meizitu.net/2016/10/21a',
-    dir: 'd:/vedio/pic/b',
-    total: 9
+    baseUrl: 'http://i.meizitu.net/2016/11/17a',
+    dir: 'd:/vedio/pic/c',
+    total: 43
 })
 mzitu.start();
