@@ -41,7 +41,7 @@ Mzitu.prototype = {
 }
 var mzitu = new Mzitu({
     baseUrl: 'http://i.meizitu.net/2016/11/17a',
-    dir: 'd:/vedio/pic/c',
+    dir: 'd:/vedio/img/c',
     total: 43
 })
 mzitu.start();
